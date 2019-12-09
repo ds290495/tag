@@ -1,0 +1,8 @@
+﻿{
+  "DB_HOST": "localhost",
+  "DB_User": "dextraining",
+  "DB_Pass": "dextraining123",
+  "DB_PORT": "27017",
+  "DB_NAME": "dextraining",
+  "secret": "dextraining"
+}

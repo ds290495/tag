@@ -1,0 +1,86 @@
+<div class="page-layout simple fullwidth angular-material-elements" fusePerfectScrollbar>
+
+	<div class="header accent p-24 h-60" fxLayout="row" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+		fxLayoutAlign.gt-xs="space-between center">
+
+		<div class="logo mb-18 mb-sm-0" fxLayout="row" fxLayoutAlign="start center">
+			<mat-icon class="logo-icon">
+				list
+			</mat-icon>
+			<span class="logo-text h1 p-8">
+				List of Training Items
+			</span>
+
+		</div>
+		<!-- <button mat-raised-button matTooltip="Product" [routerLink]="['/addtag/addtag']">Add Product</button> -->
+		<button style="margin-left:885px" mat-raised-button [routerLink]="['/trainingprograms']">Back</button>
+
+		<button mat-raised-button class="add-file-button" [routerLink]="['/training/createtrainingitem',productId,flag]">
+			Create</button>
+
+		<!-- <button mat-menu-item [routerLink]="['addtag/addtag']">
+			<mat-icon>filter_vintage</mat-icon>
+			<span>Add Tag</span>
+		</button> -->
+	</div>
+	<div class="content p-24">
+
+
+		<div class="mat-elevation-z8">
+			<h4 class="mat-subheading-2 center-align subheadcstm">{{productName}} (Item Code: {{productCode}})</h4>
+			<div class="example-header" style="padding: 0 20px;">
+				<mat-form-field floatPlaceholder="never" style="color: black; width: 100%;">
+					<input matInput (keyup)="applyFilter($event.target.value)" #filter placeholder="Search Items">
+				</mat-form-field>
+			</div>
+			<div>
+				<div class="row" id="itemdatatest" #scrollEl cdk-scrollable style="height:600px; overflow-y:scroll">
+					<mat-table *ngIf="dataSource" matSort #table1 cdkDropList [dataSource]="dataSource"
+						#list="cdkDropList" [cdkDropListData]="dataSource.data"
+						(cdkDropListDropped)="onListDrop($event)" class="example-list">
+
+						<ng-container matColumnDef="title">
+							<mat-header-cell *matHeaderCellDef mat-sort-header class="cstmhead">Title </mat-header-cell>
+							<mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+						</ng-container>
+
+						<ng-container matColumnDef="noofsteps">
+							<mat-header-cell *matHeaderCellDef class="cstmhead"> No. of Steps </mat-header-cell>
+							<mat-cell *matCellDef="let element"> {{element.steps}} </mat-cell>
+						</ng-container>
+
+						<ng-container matColumnDef="status">
+							<mat-header-cell *matHeaderCellDef class="cstmhead"> Status </mat-header-cell>
+							<mat-cell *matCellDef="let element">
+								<mat-slide-toggle checked="{{element.status}}"
+									(change)="changestatus($event,element._id)"></mat-slide-toggle>
+							</mat-cell>
+						</ng-container>
+
+						<ng-container matColumnDef="action">
+							<mat-header-cell *matHeaderCellDef class="cstmhead"> Action </mat-header-cell>
+							<mat-cell *matCellDef="let element">
+								<button mat-mini-fab color="primary" style="margin-right: 7px;" class="matbtncstm"
+									[routerLink]="['/training/updatetrainingitem',element._id]">
+									<mat-icon class="mat-icon ng-tns-c63-105 material-icons " role="img"
+										aria-hidden="true">edit</mat-icon>
+								</button>
+
+								<button mat-mini-fab color="warn" class="matbtncstm"
+									(click)="deleteTrainingItems(element._id,productId,element.title,element.order)">
+									<mat-icon class="mat-icon ng-tns-c63-105 material-icons" role="img"
+										aria-hidden="true">delete_outline</mat-icon>
+								</button>
+							</mat-cell>
+						</ng-container>
+
+						<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+						<mat-row *matRowDef="let element; columns: displayedColumns;" class="example-box" cdkDrag>
+						</mat-row>
+					</mat-table>
+				</div>
+			</div>
+			<!-- <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator> -->
+		</div>
+	</div>
+</div>

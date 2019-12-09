@@ -1,0 +1,5 @@
+<div mat-dialog-content>Are you sure you want to delete?</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close (click)="deletetrainingitem(data.itemid,data.trainingid,data.index,data.formarry,data.imgurls,data.ordervalue,data.ids,data.orders)">Yes </button>
+    <button mat-button mat-dialog-close [routerLink]="['/training/updatetrainingitem',data.trainingid]">Cancel</button>
+</div>

@@ -1,0 +1,23 @@
+<div class="navbar-header fuse-navy-900" >
+
+    <div class="logo" [routerLink]="['/dashboard']">
+        <img class="logo-icon" src="assets/images/logos/logo.png">
+        <span class="logo-text" >DexTraining</span>
+    </div>
+
+    <button mat-icon-button class="toggle-sidebar-folded"
+            (click)="toggleSidebarFolded('navbar')" fxHide.lt-lg>
+        <mat-icon>menu</mat-icon>
+    </button>
+
+    <button mat-icon-button class="toggle-sidebar-opened"
+            (click)="toggleSidebarOpened('navbar')" fxHide.gt-md>
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+
+</div>
+
+<div class="navbar-content fuse-navy-700 " fusePerfectScrollbar [fusePerfectScrollbarOptions]="{suppressScrollX: true}" >
+
+     <fuse-navigation [navigation]="navigation" ></fuse-navigation>
+</div>

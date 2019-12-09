@@ -1,0 +1,205 @@
+<div id="forms" class="page-layout simple fullwidth" fxLayout="column">
+
+	<div class="header accent p-24 h-60" fxLayout="row" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+		fxLayoutAlign.gt-xs="space-between center">
+
+		<div class="logo mb-18 mb-sm-0" fxLayout="row" fxLayoutAlign="start center">
+			<mat-icon class="logo-icon">
+				add
+			</mat-icon>
+			<span class="logo-text h1 p-8">
+				Create New Training Item
+			</span>
+		</div>
+		<button *ngIf="flag=='1'" mat-raised-button matTooltip="Training Items" [routerLink]="['/training/addtraining']">Back</button>
+
+		<button *ngIf="flag=='2'" mat-raised-button matTooltip="Training Items" [routerLink]="['/training/viewtrainingitem',productid]">Back</button>
+
+	</div>
+
+
+	<!-- / HEADER -->
+
+	<!-- CONTENT -->
+	<div class="content p-24">
+
+		<div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row">
+			
+			<ngx-loading [show]="loading"
+                [config]="{animationType: ngxLoadingAnimationTypes.circleSwish, primaryColour: primaryColour, backdropBorderRadius: '3px'}"
+                [template]="loadingTemplate"></ngx-loading>
+			<!-- REACTIVE FORM EXAMPLE -->
+			<form class="mat-card mat-elevation-z4 p-24 mr-24" fxLayout="column" fxLayoutAlign="start" fxFlex="1 0 auto"
+				[formGroup]="userForm" enctype="multipart/form-data" method="post">
+				<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px">
+
+					<div fxFlex.xs="100" fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="50">
+						<!-- <h4  class="mat-subheading-2 center-align">Title</h4> -->
+
+						<mat-form-field class="example-full-width selectcls">
+							<input matInput placeholder="Title" formControlName="title">
+						</mat-form-field>
+					</div>
+				</div>
+				<mat-radio-group fxLayout="column" fxLayoutGap=10px formControlName="filetyperadio">
+					<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px">
+
+						<div fxFlex.xs="100" fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="50" class="cstmbox">
+							<!-- <h4  class="mat-subheading-2 center-align">Title</h4> -->
+
+							<mat-radio-button class="example-margin" value="Image" checked #showingmainimage>
+								Image
+							</mat-radio-button>
+
+							<a *ngIf="showingmainimage.checked" mat-button color="warn" class="add-file-button"
+								(click)="fileInput1.click()" aria-label="Add file" style="float:right">
+								Add Image
+							</a>
+
+							<input id="cin" hidden name="cin" #fileInput1 type="file"
+								accept=".jpg,.jpeg,.png,.raw,.tiff" (change)="imageChangeEvent($event)"
+								placeholder="Upload a file..." multiple formControlName="itemdataimage" />
+
+							<div *ngIf="showingmainimage.checked" class="remember-me" class="img-wrap">
+
+								<img *ngIf="imageurls" [src]="imageurls"
+									style="width: 100px;height: auto;padding: 4px;border: 1px solid #ccc;border-radius: 5px;">
+
+							</div>
+
+						</div>
+
+						<div fxFlex.xs="100" fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="50" class="cstmbox">
+							<mat-radio-button class="example-margin" value="Video" #showinghiding>
+								Video
+							</mat-radio-button>
+							<mat-form-field *ngIf="showinghiding.checked" class="example-full-width selectcls">
+								<input matInput placeholder="Enter Video Link" formControlName="vimeolink">
+							</mat-form-field>
+						</div>
+
+					</div>
+					<span id="filetypeerror" style="color:red"></span>
+				</mat-radio-group>
+
+				<br>
+				<!-- <mat-divider></mat-divider> -->
+				<!-- Training item div -->
+
+
+				<h4 class="mat-subheading-2 center-align">Steps</h4>
+				<mat-divider></mat-divider>
+				<div fxFlex fxLayout="column" fxLayoutAlign="end stretch">
+					<div fxLayout="row" fxLayoutAlign="space-between stretch">
+
+						<button mat-mini-fab color="primary" (click)="onTrainingItems()" style="margin-top: 10px;">
+							<mat-icon class="mat-icon ng-tns-c63-105 material-icons" role="img" aria-hidden="true">add
+							</mat-icon>
+						</button>
+					</div>
+				</div>
+				<!-- Multistep div -->
+				<div>
+					<div class="row" id="itemdatatest" #scrollEl cdk-scrollable style="height:600px; overflow-y:scroll">
+						<div formArrayName="trainingitems" cdkDropList class="example-list"
+							(cdkDropListDropped)="drop($event)">
+							<div *ngFor="let ctrl of userForm.get('trainingitems')['controls']; let i = index"
+								[formGroupName]="i" class="adddiv example-box" cdkDrag>
+								<div class="adddivdata" id="itemdt{{i}}" style="width:100%">
+									<div class="numindex" style="width:5%">
+										<p class="numdata">{{i+1}}</p>
+									</div>
+									<div style="width: 38%;">
+										<mat-form-field class="example-full-width selectcls">
+											<input matInput placeholder="Name" formControlName="itemname">
+										</mat-form-field>
+									</div>
+
+
+
+
+									<mat-radio-group fxLayout="column" fxLayoutGap=10px formControlName="fileradiotype"
+										style="width: 53%;">
+										<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px">
+
+											<div fxFlex.xs="100" fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="50"
+												class="cstmbox">
+												<!-- <h4  class="mat-subheading-2 center-align">Title</h4> -->
+
+												<mat-radio-button class="example-margin" value="Image" checked
+													#showingitemimg>
+													Image 
+												</mat-radio-button>
+
+												<a *ngIf="showingitemimg.checked" mat-button color="warn"
+													class="add-file-button" (click)="fileInput1.click()"
+													aria-label="Add file" style="float:right">
+													Add Image
+												</a>
+
+												<input id="cin" hidden name="cin" #fileInput1 type="file"
+													accept=".jpg,.jpeg,.png,.raw,.tiff"
+													(change)="fileChangeEvent($event,i)" placeholder="Upload a file..."
+													formControlName="itemimage" />
+
+												<div *ngIf="showingitemimg.checked" class="remember-me"
+													class="img-wrap">
+													<!-- <span *ngIf="urls[i]" class="close" (click)="close(urls,$event,$index,i)">&times;</span> -->
+													<div class="imgcontain">
+														<span class="close" *ngIf="urls[i]"
+															(click)="close(urls,$event,$index,i)">&times;</span>
+														<img *ngIf="urls[i]" [src]="urls[i]" class="imgselect">
+													</div>
+												</div>
+
+											</div>
+
+											<div fxFlex.xs="100" fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="50"
+												class="cstmbox">
+												<mat-radio-button class="example-margin" value="Gif" #showinggif>
+													GIF 
+												</mat-radio-button>
+												<mat-form-field *ngIf="showinggif.checked"
+													class="example-full-width selectcls" style="margin-left: 6%;">
+													<input matInput placeholder="GIF URL" formControlName="gifurl" >
+												</mat-form-field>
+											</div>
+
+										</div>
+										<span id="typeerror{{i}}" style="color:red"></span>
+									</mat-radio-group>
+
+									<div fxFlex fxLayout="column" fxLayoutAlign="end stretch" *ngIf="i != '0'">
+										<div fxLayout="row" fxLayoutAlign="space-between stretch" class="deletebtn">
+
+											<button mat-mini-fab color="warn" (click)="removeTrainingItems(i)">
+												<mat-icon class="mat-icon ng-tns-c63-105 material-icons" role="img"
+													aria-hidden="true">delete_outline</mat-icon>
+											</button>
+										</div>
+									</div>
+
+									<br>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<br>
+				<!-- Submit button -->
+				<div fxFlex fxLayout="column" fxLayoutAlign="end stretch">
+					<div fxLayout="row" fxLayoutAlign="space-between stretch">
+						<button *ngIf="flag=='2'" mat-raised-button [routerLink]="['/training/viewtrainingitem',productid]">BACK</button>
+						<button *ngIf="flag=='1'" mat-raised-button [routerLink]="['/training/addtraining']">BACK</button>
+
+						<button mat-raised-button color="primary" [disabled]="!userForm.valid" style="color: white;"
+							type="submit" (click)="addTrainingItem()">SUBMIT</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- / CONTENT -->
+
+</div>

@@ -1,0 +1,5 @@
+<div mat-dialog-content>Training program already exists for this. Do you want to go to it?</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close [routerLink]="['/training/createtrainingitem',data.proId,data.flag]">Yes </button>
+    <button mat-button mat-dialog-close [routerLink]="['/trainingprograms']">Cancel</button>
+</div>

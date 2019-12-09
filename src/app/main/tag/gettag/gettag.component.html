@@ -1,0 +1,76 @@
+<div class="page-layout simple fullwidth angular-material-elements" fusePerfectScrollbar>
+
+  <div class="header accent p-24 h-60" fxLayout="row" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-between center">
+
+    <div class="logo mb-18 mb-sm-0" fxLayout="row" fxLayoutAlign="start center">
+      <mat-icon class="logo-icon" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+          list
+      </mat-icon>
+      <span class="logo-text h1 p-8" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+          List of Training Programs
+      </span>
+
+    </div>
+    <!-- <button mat-raised-button matTooltip="Product" [routerLink]="['/addtag/addtag']">Add Product</button> -->
+    
+    <button style="margin-left:650px" mat-raised-button class="add-file-button" [routerLink]="['/training/addtraining']">
+      Create</button>
+
+    <!-- <button mat-menu-item [routerLink]="['addtag/addtag']">
+      <mat-icon>filter_vintage</mat-icon>
+      <span>Add Tag</span>
+  </button> -->
+  </div>
+  <div class="content p-24">
+
+
+    <div class="mat-elevation-z8">
+      <div class="example-header" style="padding: 0 20px;">
+        <mat-form-field floatPlaceholder="never" style="color: black; width: 100%;">
+          <input matInput (keyup)="applyFilter($event.target.value)" #filter placeholder="Search Programs">
+        </mat-form-field>
+      </div>
+
+      <table matSort mat-table [dataSource]="dataSource" >
+       
+        <ng-container matColumnDef="procutName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Name </th>
+          <td mat-cell *matCellDef="let element"><a [routerLink]="['/training/viewtrainingitem',element._id]"> {{element.procutName}}</a> </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="productCode">
+          <th mat-header-cell *matHeaderCellDef> Item Code </th>
+          <td mat-cell *matCellDef="let element"> {{element.productCode}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="datemodified">
+          <th mat-header-cell *matHeaderCellDef> Date Modified </th>
+          <td mat-cell *matCellDef="let element"> {{element.date_modified}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="export">
+          <th mat-header-cell *matHeaderCellDef> Export </th>
+          <td mat-cell *matCellDef="let element"> 
+            <button mat-mini-fab color="primary" class="matbtncstm"  (click)="exportTrainingItems(i,element._id)"><mat-icon class="mat-icon ng-tns-c63-105 material-icons" role="img" aria-hidden="true">save_alt</mat-icon></button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let element"> 
+            <button mat-mini-fab color="primary" style="margin-right: 7px;" class="matbtncstm" [routerLink]="['/products/updateproduct/',element._id]"><mat-icon class="mat-icon ng-tns-c63-105 material-icons " role="img" aria-hidden="true">edit</mat-icon></button>
+
+            <button mat-mini-fab color="warn" class="matbtncstm"  (click)="removeTrainingItems(i,element._id)"><mat-icon class="mat-icon ng-tns-c63-105 material-icons" role="img" aria-hidden="true">delete_outline</mat-icon></button>
+          </td>
+         
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+    </div>
+  </div>
+</div>
