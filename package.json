@@ -68,7 +68,7 @@
     "date-fns": "1.29.0",
     "dateformat": "3.0.3",
     "express-force-ssl": "0.3.2",
-    "express-jwt": "5.3.1",
+    "express-jwt": "6.0.0",
     "express-session": "1.15.6",
     "fate-editor": "1.9.2",
     "file-system": "2.2.2",
