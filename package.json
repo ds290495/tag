@@ -56,7 +56,7 @@
     "aws-smtp-credentials": "1.0.0",
     "bcryptjs": "2.4.3",
     "bn-ng-idle": "0.0.2",
-    "chart.js": "2.7.3",
+    "chart.js": "2.9.4",
     "classlist.js": "1.1.20150312",
     "client-oauth2": "4.2.3",
     "connect-multiparty": "2.2.0",
