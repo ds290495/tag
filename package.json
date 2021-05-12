@@ -114,7 +114,7 @@
     "ngx-tweet": "2.0.3",
     "ngx-twitter-api": "0.4.2",
     "node-ses": "2.1.0",
-    "nodemailer": "5.1.1",
+    "nodemailer": "6.4.16",
     "nodemailer-ses-transport": "1.5.1",
     "path": "0.12.7",
     "perfect-scrollbar": "1.4.0",
